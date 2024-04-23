@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -45,7 +46,8 @@ public class Mine extends XWindow {
                         for (int j = 0; j < boardPixel[i].length; j++) {
                             if (label == boardPixel[i][j]) {
                                 System.out.println("Left Clicked: " + i + ", " + j);
-                                if (boardPixelStates[i][j] == PixelState.COVERED && boardFlagStates[i][j] == FlagState.NONE) {
+                                if (boardPixelStates[i][j] == PixelState.COVERED
+                                        && boardFlagStates[i][j] == FlagState.NONE) {
                                     if (gameStart == false) {
                                         gameStart = true;
                                         System.out.println("Game Started");
@@ -202,20 +204,57 @@ public class Mine extends XWindow {
     }
 
     private void plantMines(int mines, int firstClickedX, int firstClickedY) {
-        Random random = new Random();
-        for (int i = 0; i < mines; i++) {
-            int x = random.nextInt(boardPixel.length);
-            int y = random.nextInt(boardPixel[0].length);
-            if (Math.abs(firstClickedX - x) <= 1 || Math.abs(firstClickedY - y) <= 1) {
-                i--;
-                continue;
-            }
-            if (boardMineStates[x][y] == MineState.MINE) {
-                i--;
-                continue;
-            }
-            boardMineStates[x][y] = MineState.MINE;
+        final int boardWidth = boardPixel.length;
+        final int boardHeight = boardPixel[0].length;
+
+        if (firstClickedX < 0 || firstClickedX >= boardWidth) {
+            throw new IllegalArgumentException("firstClickedX is out of bounds");
         }
+        if (firstClickedY < 0 || firstClickedY >= boardHeight) {
+            throw new IllegalArgumentException("firstClickedY is out of bounds");
+        }
+
+        final int boardSize = boardWidth * boardHeight;
+
+        ArrayList<Integer> remainBlockIndexes = new ArrayList<>(boardSize);
+
+        for (int x = 0; x < boardWidth; x++) {
+            for (int y = 0; y < boardHeight; y++) {
+                if ((x >= firstClickedX - 1 && x <= firstClickedX + 1)
+                        && (y >= firstClickedY - 1 && y <= firstClickedY + 1)) {
+                    continue;
+                }
+                remainBlockIndexes.add(y * boardWidth + x);
+            }
+        }
+
+        if (mines > remainBlockIndexes.size()) {
+            throw new IllegalArgumentException("mines is greater than possible");
+        }
+
+        if (mines == remainBlockIndexes.size()) {
+            var iterator = remainBlockIndexes.iterator();
+
+            while (iterator.hasNext()) {
+                final int blockIndex = iterator.next();
+                final int blockX = blockIndex % boardWidth;
+                final int blockY = blockIndex / boardWidth;
+
+                boardMineStates[blockX][blockY] = MineState.MINE;
+            }
+        } else {
+            Random random = new Random();
+            for (int i = 0; i < mines; i++) {
+                final int selectedIndex = random.nextInt(remainBlockIndexes.size());
+                final int selectedBlockIndex = remainBlockIndexes.get(selectedIndex);
+                remainBlockIndexes.remove(selectedIndex);
+
+                final int blockX = selectedBlockIndex % boardWidth;
+                final int blockY = selectedBlockIndex / boardWidth;
+                boardMineStates[blockX][blockY] = MineState.MINE;
+            }
+        }
+
     }
 
     private int howManyMinesAroundHere(int x, int y) {
