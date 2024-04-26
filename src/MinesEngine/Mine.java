@@ -204,6 +204,10 @@ public class Mine extends XWindow {
     }
 
     private void plantMines(int mines, int firstClickedX, int firstClickedY) {
+        if (mines < 0) {
+            throw new IllegalArgumentException("mines is negative");
+        }
+
         final int boardWidth = boardPixel.length;
         final int boardHeight = boardPixel[0].length;
 
