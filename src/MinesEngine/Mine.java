@@ -332,6 +332,9 @@ public class Mine extends XWindow {
     }
 
     private void uncover(int x, int y) {
+        if (boardPixelStates[x][y] == PixelState.COVERED && boardFlagStates[x][y] == FlagState.FLAG) {
+            return;
+        }
         int xStart;
         int xEnd;
         int yStart;
