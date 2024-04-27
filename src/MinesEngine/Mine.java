@@ -101,10 +101,39 @@ public class Mine extends XWindow {
                                             }
                                         }
                                         if (flagCount == howManyMinesAroundHere(i, j)) {
+                                            boolean mismatched = false;
                                             for (int k = xStart; k <= xEnd; k++) {
                                                 for (int l = yStart; l <= yEnd; l++) {
-                                                    if (boardFlagStates[k][l] != FlagState.FLAG) {
-                                                        uncover(k, l);
+                                                    if (k == i && l == j) {
+                                                        continue;
+                                                    }
+                                                    if (boardPixelStates[k][l] == PixelState.COVERED
+                                                            && ((boardFlagStates[k][l] == FlagState.FLAG
+                                                                    && boardMineStates[k][l] != MineState.MINE)
+                                                                    || (boardFlagStates[k][l] != FlagState.FLAG
+                                                                            && boardMineStates[k][l] == MineState.MINE))) {
+                                                        mismatched = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (mismatched) {
+                                                    break;
+                                                }
+                                            }
+                                            if (mismatched) {
+                                                JOptionPane.showMessageDialog(null, "You Lose!");
+                                                enableTouchReaction = false;
+                                                changeTitle("You Lose!");
+                                                return;
+                                            } else {
+                                                for (int x = xStart; x <= xEnd; x++) {
+                                                    for (int y = yStart; y <= yEnd; y++) {
+                                                        if (x == i && y == j) {
+                                                            continue;
+                                                        }
+                                                        if (boardPixelStates[x][y] == PixelState.COVERED
+                                                                && boardFlagStates[x][y] != FlagState.FLAG)
+                                                            uncover(x, y);
                                                     }
                                                 }
                                             }
