@@ -47,7 +47,7 @@ public class Mine extends XWindow {
                             if (label == boardPixel[i][j]) {
                                 System.out.println("Left Clicked: " + i + ", " + j);
                                 if (boardPixelStates[i][j] == PixelState.COVERED
-                                        && boardFlagStates[i][j] == FlagState.NONE) {
+                                        && boardFlagStates[i][j] != FlagState.FLAG) {
                                     if (gameStart == false) {
                                         gameStart = true;
                                         System.out.println("Game Started");
@@ -103,7 +103,7 @@ public class Mine extends XWindow {
                                         if (flagCount == howManyMinesAroundHere(i, j)) {
                                             for (int k = xStart; k <= xEnd; k++) {
                                                 for (int l = yStart; l <= yEnd; l++) {
-                                                    if (boardFlagStates[k][l] == FlagState.NONE) {
+                                                    if (boardFlagStates[k][l] != FlagState.FLAG) {
                                                         uncover(k, l);
                                                     }
                                                 }
