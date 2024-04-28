@@ -191,19 +191,19 @@ public class Mine extends XWindow {
         setSize(pixelSize * width + 100, pixelSize * height + 200);
 
         for (int i = 0; i < 9; i++) {
-            mineCountIcon[i] = new ImageIcon(new ImageIcon("src/MinesEngine/" + i + ".png").getImage()
+            mineCountIcon[i] = new ImageIcon(new ImageIcon(Mine.class.getResource(i + ".png")).getImage()
                     .getScaledInstance(pixelSize, pixelSize, Image.SCALE_DEFAULT));
         }
         FlagIcon = new ImageIcon(
-                new ImageIcon("src/MinesEngine/coveredFlag.png").getImage().getScaledInstance(pixelSize,
+                new ImageIcon(Mine.class.getResource("coveredFlag.png")).getImage().getScaledInstance(pixelSize,
                         pixelSize, Image.SCALE_DEFAULT));
-        QuestionIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredQuestion.png").getImage()
+        QuestionIcon = new ImageIcon(new ImageIcon(Mine.class.getResource("coveredQuestion.png")).getImage()
                 .getScaledInstance(pixelSize, pixelSize, Image.SCALE_DEFAULT));
-        NoneIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredDefault.png").getImage()
+        NoneIcon = new ImageIcon(new ImageIcon(Mine.class.getResource("coveredDefault.png")).getImage()
                 .getScaledInstance(pixelSize, pixelSize, Image.SCALE_DEFAULT));
-        FlagMismatchedIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredFlagMismatched.png").getImage()
+        FlagMismatchedIcon = new ImageIcon(new ImageIcon(Mine.class.getResource("coveredFlagMismatched.png")).getImage()
                 .getScaledInstance(pixelSize, pixelSize, Image.SCALE_SMOOTH));
-        MineIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredMine.png").getImage()
+        MineIcon = new ImageIcon(new ImageIcon(Mine.class.getResource("coveredMine.png")).getImage()
                 .getScaledInstance(pixelSize, pixelSize, Image.SCALE_SMOOTH));
 
         leftMines = mines;
@@ -414,7 +414,7 @@ public class Mine extends XWindow {
     {
         final int boardWidth = boardPixel.length;
         final int boardHeight = boardPixel[0].length;
-        
+
         for (int x = 0; x < boardWidth; x++) {
             for (int y = 0; y < boardHeight; y++) {
                 if (boardPixelStates[x][y] == PixelState.COVERED) {

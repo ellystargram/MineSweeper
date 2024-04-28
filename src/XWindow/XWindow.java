@@ -27,20 +27,20 @@ public class XWindow extends JFrame {
     private boolean enableMaximize = false;
     private boolean enableMinimize = false;
     private JPanel contentScreen = new JPanel(new BorderLayout());
-    private ImageIcon closeAlive = new ImageIcon(new ImageIcon("./src/XWindow/closeAlive.png").getImage()
+    private ImageIcon closeAlive = new ImageIcon(new ImageIcon(XWindow.class.getResource("closeAlive.png")).getImage()
             .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
-    private ImageIcon closeDead = new ImageIcon(new ImageIcon("./src/XWindow/closeDead.png").getImage()
+    private ImageIcon closeDead = new ImageIcon(new ImageIcon(XWindow.class.getResource("closeDead.png")).getImage()
             .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
-    private ImageIcon miniAlive = new ImageIcon(new ImageIcon("./src/XWindow/miniAlive.png").getImage()
+    private ImageIcon miniAlive = new ImageIcon(new ImageIcon(XWindow.class.getResource("miniAlive.png")).getImage()
             .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
-    private ImageIcon miniDead = new ImageIcon(new ImageIcon("./src/XWindow/miniDead.png").getImage()
+    private ImageIcon miniDead = new ImageIcon(new ImageIcon(XWindow.class.getResource("miniDead.png")).getImage()
             .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
-    private ImageIcon maxAlive = new ImageIcon(new ImageIcon("./src/XWindow/maxAlive.png").getImage()
+    private ImageIcon maxAlive = new ImageIcon(new ImageIcon(XWindow.class.getResource("maxAlive.png")).getImage()
             .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
     private ImageIcon maxDead = new ImageIcon(
-            new ImageIcon("./src/XWindow/maxDead.png").getImage().getScaledInstance(20,
+            new ImageIcon(XWindow.class.getResource("maxDead.png")).getImage().getScaledInstance(20,
                     20, java.awt.Image.SCALE_SMOOTH));
-    private ImageIcon disabled = new ImageIcon(new ImageIcon("./src/XWindow/disabled.png").getImage()
+    private ImageIcon disabled = new ImageIcon(new ImageIcon(XWindow.class.getResource("disabled.png")).getImage()
             .getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
     private JLabel closeButton = new JLabel(closeDead);
     private JLabel miniButton = new JLabel(miniDead);
