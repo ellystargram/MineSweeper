@@ -25,6 +25,8 @@ public class Mine extends XWindow {
     ImageIcon FlagIcon;
     ImageIcon QuestionIcon;
     ImageIcon NoneIcon;
+    ImageIcon FlagMismatchedIcon;
+    ImageIcon MineIcon;
 
     JPanel board = new JPanel(null);
     int pixelSize = 20;
@@ -123,6 +125,7 @@ public class Mine extends XWindow {
                                             if (mismatched) {
                                                 JOptionPane.showMessageDialog(null, "You Lose!");
                                                 enableTouchReaction = false;
+                                                revealMines();
                                                 changeTitle("You Lose!");
                                                 return;
                                             } else {
@@ -198,6 +201,10 @@ public class Mine extends XWindow {
                 .getScaledInstance(pixelSize, pixelSize, Image.SCALE_DEFAULT));
         NoneIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredDefault.png").getImage()
                 .getScaledInstance(pixelSize, pixelSize, Image.SCALE_DEFAULT));
+        FlagMismatchedIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredFlagMismatched.png").getImage()
+                .getScaledInstance(pixelSize, pixelSize, Image.SCALE_SMOOTH));
+        MineIcon = new ImageIcon(new ImageIcon("src/MinesEngine/coveredMine.png").getImage()
+                .getScaledInstance(pixelSize, pixelSize, Image.SCALE_SMOOTH));
 
         leftMines = mines;
         leftMinesLabel = new JLabel("Mines Left: " + leftMines);
@@ -343,6 +350,7 @@ public class Mine extends XWindow {
         if (boardMineStates[x][y] == MineState.MINE) {
             JOptionPane.showMessageDialog(null, "You Lose!");
             enableTouchReaction = false;
+            revealMines();
             changeTitle("You Lose!");
             return;
         }
@@ -400,6 +408,28 @@ public class Mine extends XWindow {
             }
         }
         return leftTile;
+    }
+
+    private void revealMines()
+    {
+        final int boardWidth = boardPixel.length;
+        final int boardHeight = boardPixel[0].length;
+        
+        for (int x = 0; x < boardWidth; x++) {
+            for (int y = 0; y < boardHeight; y++) {
+                if (boardPixelStates[x][y] == PixelState.COVERED) {
+                    if (boardMineStates[x][y] == MineState.MINE) {
+                        if (boardFlagStates[x][y] != FlagState.FLAG) {
+                            boardPixel[x][y].setIcon(MineIcon);
+                        }
+                    } else {
+                        if (boardFlagStates[x][y] == FlagState.FLAG) {
+                            boardPixel[x][y].setIcon(FlagMismatchedIcon);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     enum MineState {
