@@ -47,14 +47,11 @@ public class Mine extends JFrame {
                     for (int i = 0; i < boardPixel.length; i++) {
                         for (int j = 0; j < boardPixel[i].length; j++) {
                             if (label == boardPixel[i][j]) {
-                                System.out.println("Left Clicked: " + i + ", " + j);
                                 if (boardPixelStates[i][j] == PixelState.COVERED
                                         && boardFlagStates[i][j] != FlagState.FLAG) {
                                     if (gameStart == false) {
                                         gameStart = true;
-                                        System.out.println("Game Started");
                                         plantMines(leftMines, i, j);
-                                        System.out.println(leftMines);
                                     }
 
                                     uncover(i, j);
@@ -157,7 +154,6 @@ public class Mine extends JFrame {
                     for (int i = 0; i < boardPixel.length; i++) {
                         for (int j = 0; j < boardPixel[i].length; j++) {
                             if (label == boardPixel[i][j]) {
-                                System.out.println("Right Clicked: " + i + ", " + j);
                                 if (boardPixelStates[i][j] == PixelState.COVERED) {
                                     if (boardFlagStates[i][j] == FlagState.NONE) {
                                         boardFlagStates[i][j] = FlagState.FLAG;
