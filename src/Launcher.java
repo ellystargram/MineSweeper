@@ -1,5 +1,6 @@
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -11,9 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import XWindow.XWindow;
 
-public class Launcher extends XWindow {
+public class Launcher extends JFrame {
     JComboBox<String> difficulty = new JComboBox<String>();
     JTextField width = new JTextField();
     JTextField height = new JTextField();
@@ -93,9 +93,10 @@ public class Launcher extends XWindow {
     }
 
     public Launcher() {
-        super(250, 300, "MineLauncher", true);
-        setMinimizeEnable(true);
-        setMaximizeEnable(false);
+        super("MineLauncher");
+        setSize(270, 300);
+        setBackground(new Color(64, 64, 64));
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(null);

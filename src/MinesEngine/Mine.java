@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import XWindow.XWindow;
 
-public class Mine extends XWindow {
+public class Mine extends JFrame {
     JLabel[][] boardPixel;
     MineState[][] boardMineStates;
     FlagState[][] boardFlagStates;
@@ -126,7 +126,7 @@ public class Mine extends XWindow {
                                                 JOptionPane.showMessageDialog(null, "You Lose!");
                                                 enableTouchReaction = false;
                                                 revealMines();
-                                                changeTitle("You Lose!");
+                                                setTitle("You Lose!");
                                                 return;
                                             } else {
                                                 for (int x = xStart; x <= xEnd; x++) {
@@ -183,10 +183,11 @@ public class Mine extends XWindow {
     };
 
     public Mine(int width, int height, int mines) {
-        super(1280, 720, "Minesweeper", true);
+        super("Minesweeper");
+        setSize(1280, 720);
+        setBackground(new Color(64, 64, 64));
         totalMines = mines;
-        setMinimizeEnable(true);
-        setMaximizeEnable(false);
+        setResizable(false);
         pixelSize = Math.min(1000 / width, 500 / height);
         setSize(pixelSize * width + 100, pixelSize * height + 200);
 
@@ -351,7 +352,7 @@ public class Mine extends XWindow {
             JOptionPane.showMessageDialog(null, "You Lose!");
             enableTouchReaction = false;
             revealMines();
-            changeTitle("You Lose!");
+            setTitle("You Lose!");
             return;
         }
 
